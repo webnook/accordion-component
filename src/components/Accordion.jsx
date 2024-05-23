@@ -20,10 +20,16 @@ const data = [
 ];
 
 const Accordion = () => {
+  const [open, setOpen] = useState(null);
   return (
     <div className="max-w-[50rem] rounded-2xl overflow-hidden">
       {data.map((item) => (
-        <AccordionItem key={item.id} item={item} />
+        <AccordionItem
+          key={item.id}
+          item={item}
+          setOpen={setOpen}
+          open={open}
+        />
       ))}
     </div>
   );
@@ -31,12 +37,12 @@ const Accordion = () => {
 
 export default Accordion;
 
-const AccordionItem = ({ item }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const AccordionItem = ({ item, open, setOpen }) => {
+  const isOpen = item.id === open;
   return (
     <div className="bg-white p-4">
       <div
-        onClick={() => setIsOpen((is) => !is)}
+        onClick={() => setOpen(item.id === open ? null : item.id)}
         className="p-4 cursor-pointer flex items-center justify-between font-bold text-xl">
         <div> {item.title}</div>
         <ChevronDownIcon
